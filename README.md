@@ -4,7 +4,7 @@ Create and Verify JWT using Deno
 
 ## API
 
-### create
+### createJwt
 
 Takes `Header`, `Payload` and `CryptoKey` and returns the url-safe encoded
 `jwt`.
@@ -15,7 +15,7 @@ import { createJwt } from "./mod.ts";
 const jwt = await createJwt({ alg: "HS512", typ: "JWT" }, { foo: "bar" }, key);
 ```
 
-### verify
+### verifyJwt
 
 Takes `jwt`, `CryptoKey` and `VerifyOptions` and returns the `Payload` of the
 `jwt` if the `jwt` is valid. Otherwise it throws an `Error`.
@@ -26,7 +26,7 @@ import { verifyJwt } from "./mod.ts";
 const payload = await verifyJwt(jwt, key); // { foo: "bar" }
 ```
 
-### decode
+### decodeJwt
 
 Takes a `jwt` and returns a 3-tuple
 `[header: unknown, payload: unknown, signature: Uint8Array]` if the `jwt` has a
@@ -68,7 +68,7 @@ The following signature and MAC algorithms have been implemented:
 - PS512 (RSASSA-PSS SHA-512)
 - ES256 (ECDSA using P-256 and SHA-256)
 - ES384 (ECDSA using P-384 and SHA-384)
-- ES512 (ECDSA using P-521 and SHA-512) (Not supported yet!)
+- ES512 (ECDSA using P-521 and SHA-512) (Not supported yet: [P-521 curves in WebCrypto #13449](https://github.com/denoland/deno/issues/13449))
 - none ([_Unsecured JWTs_](https://tools.ietf.org/html/rfc7519#section-6)).
 
 ## Serialization
